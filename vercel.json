@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "open-swe-web",
+  "buildCommand": "yarn build",
+  "outputDirectory": "apps/web/.next",
+  "installCommand": "yarn install --immutable",
+  "framework": "nextjs",
+  "rootDirectory": "apps/web",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- apps/web/",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@next_public_api_url",
+    "LANGGRAPH_API_URL": "@langgraph_api_url",
+    "SECRETS_ENCRYPTION_KEY": "@secrets_encryption_key",
+    "NEXT_PUBLIC_GITHUB_APP_CLIENT_ID": "@next_public_github_app_client_id",
+    "GITHUB_APP_CLIENT_SECRET": "@github_app_client_secret",
+    "GITHUB_APP_REDIRECT_URI": "@github_app_redirect_uri",
+    "GITHUB_APP_NAME": "@github_app_name",
+    "GITHUB_APP_ID": "@github_app_id",
+    "GITHUB_APP_PRIVATE_KEY": "@github_app_private_key",
+    "GITHUB_APP_WEBHOOK_SECRET": "@github_app_webhook_secret",
+    "NEXT_PUBLIC_ASSISTANT_ID": "@next_public_assistant_id",
+    "NEXT_PUBLIC_RESTRICT_TO_LANGCHAIN_AUTH": "@next_public_restrict_to_langchain_auth"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "functions": {
+    "apps/web/src/app/api/[..._path]/route.ts": {
+      "maxDuration": 300
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ]
+}
