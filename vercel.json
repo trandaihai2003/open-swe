@@ -1,12 +1,12 @@
 {
   "version": 2,
   "name": "open-swe-web",
-  "buildCommand": "yarn build",
+  "buildCommand": "cd ../.. && yarn build --filter=@open-swe/web",
   "outputDirectory": "apps/web/.next",
-  "installCommand": "yarn install --immutable",
+  "installCommand": "cd ../.. && yarn install --immutable",
   "framework": "nextjs",
   "rootDirectory": "apps/web",
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- apps/web/",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- apps/web/ packages/shared/",
   "env": {
     "NEXT_PUBLIC_API_URL": "@next_public_api_url",
     "LANGGRAPH_API_URL": "@langgraph_api_url",
@@ -27,7 +27,7 @@
     }
   },
   "functions": {
-    "apps/web/src/app/api/[..._path]/route.ts": {
+    "src/app/api/[..._path]/route.ts": {
       "maxDuration": 300
     }
   },
@@ -57,3 +57,4 @@
     }
   ]
 }
+
